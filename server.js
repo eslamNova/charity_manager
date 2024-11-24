@@ -1,40 +1,61 @@
-import express from 'express';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-import cors from 'cors';
-import { addDonation, getMonthlyDonations } from './src/lib/storage.js';
+const express = require('express');
+const path = require('path');
+const cors = require('cors');
+const Database = require('better-sqlite3');
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3000;
+const db = new Database('donations.db');
+
+// Create tables if they don't exist
+db.prepare(`
+  CREATE TABLE IF NOT EXISTS donations (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )
+`).run();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // API Routes
 app.post('/api/donations', (req, res) => {
   try {
     const { name, amount } = req.body;
-    addDonation(name, Number(amount));
+    const stmt = db.prepare('INSERT INTO donations (name, amount) VALUES (?, ?)');
+    stmt.run(name, Number(amount));
     res.status(201).json({ message: 'Donation added successfully' });
   } catch (error) {
+    console.error('Error adding donation:', error);
     res.status(500).json({ error: 'Failed to add donation' });
   }
 });
 
 app.get('/api/donations/monthly', (req, res) => {
   try {
-    const monthlyDonations = getMonthlyDonations();
+    const stmt = db.prepare(`
+      SELECT 
+        strftime('%Y-%m', created_at) as month,
+        COUNT(*) as donation_count,
+        SUM(amount) as total_amount
+      FROM donations
+      GROUP BY strftime('%Y-%m', created_at)
+      ORDER BY month DESC
+    `);
+    const monthlyDonations = stmt.all();
     res.json(monthlyDonations);
   } catch (error) {
+    console.error('Error fetching donations:', error);
     res.status(500).json({ error: 'Failed to fetch donations' });
   }
 });
 
 // Serve React app for all other routes
 app.get('*', (req, res) => {
-  res.sendFile(join(__dirname, 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 app.listen(PORT, () => {
