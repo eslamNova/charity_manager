@@ -9,6 +9,16 @@ export default function DonationForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Show confirmation dialog
+    const confirmed = window.confirm(
+      `Please confirm your donation:\n\nName: ${name}\nAmount: $${Number(amount).toFixed(2)}\n\nIs this correct?`
+    );
+    
+    if (!confirmed) {
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const response = await fetch('/api/donations', {
@@ -52,11 +62,11 @@ export default function DonationForm() {
                 type="text"
                 id="name"
                 required
+                disabled={isSubmitting}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500"
                 placeholder="John Doe"
-                disabled={isSubmitting}
               />
             </div>
             <div>
@@ -73,11 +83,11 @@ export default function DonationForm() {
                   required
                   min="1"
                   step="0.01"
+                  disabled={isSubmitting}
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   className="block w-full pl-7 pr-12 rounded-md border-gray-300 focus:border-rose-500 focus:ring-rose-500"
                   placeholder="0.00"
-                  disabled={isSubmitting}
                 />
               </div>
             </div>

@@ -7,6 +7,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const db = new Database('donations.db');
 
+// Admin password - in production, use environment variables
+const ADMIN_PASSWORD = 'admin123';
+
 // Create tables if they don't exist
 db.prepare(`
   CREATE TABLE IF NOT EXISTS donations (
@@ -20,6 +23,16 @@ db.prepare(`
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'dist')));
+
+// Admin authentication
+app.post('/api/admin/login', (req, res) => {
+  const { password } = req.body;
+  if (password === ADMIN_PASSWORD) {
+    res.json({ success: true });
+  } else {
+    res.status(401).json({ error: 'Invalid password' });
+  }
+});
 
 // API Routes
 app.post('/api/donations', (req, res) => {
