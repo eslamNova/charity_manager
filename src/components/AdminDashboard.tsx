@@ -123,7 +123,7 @@ export default function AdminDashboard() {
     <div className="min-h-screen px-4 py-12 bg-islamic-50 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Donation Dashboard</h1>
+          <h1 className="text-3xl font-bold text-gray-900">صفحة الإدارة</h1>
           <button
             onClick={() => setIsAuthenticated(false)}
             className="px-4 py-2 text-sm font-medium text-islamic-600 hover:text-islamic-700"

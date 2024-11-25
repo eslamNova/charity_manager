@@ -19,7 +19,7 @@ export default function DonationForm() {
     
     // Validate donation code (example: "CHARITY2024")
     if (code !== '1124') {
-      setError('Invalid donation code. Please contact the administrator.');
+      setError('كود المجموعة خاطئ، الرجاء العودة لجروب الواتس آب للتأكد من الكود');
       return;
     }
 
@@ -38,7 +38,7 @@ export default function DonationForm() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to submit donation');
+        throw new Error('حدث خطأ الرجاء تنبيه الشيخ محمد على الواتس آب');
       }
 
       setShowModal(false);
@@ -52,7 +52,7 @@ export default function DonationForm() {
         setCode('');
       }, 3000);
     } catch (error) {
-      setError('Something went wrong. Please try again.');
+      setError('حدث خطًا الرجاء المحاولة مرة أخرى');
     } finally {
       setIsSubmitting(false);
     }
@@ -75,9 +75,9 @@ export default function DonationForm() {
             <Check className="w-32 h-32 mx-auto text-islamic-600" />
           </motion.div>
           <h2 className="mb-4 text-3xl font-bold text-islamic-800">
-            Donation Successful!
+            تم التسجيل بنجاح
           </h2>
-          <p className="text-islamic-600">Thank you for your generous contribution</p>
+          <p className="text-islamic-600"> جزاكم الله خيرًا</p>
         </div>
       </motion.div>
     );
@@ -105,12 +105,12 @@ export default function DonationForm() {
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
                 className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-islamic-500 focus:ring-islamic-500"
-                placeholder="Enter your donation code"
+                placeholder="أدخل الكود الموجود على جروب الواتس آب"
               />
             </div>
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                اسم -اختياري-
+                الاسم
               </label>
               <input
                 type="text"
@@ -119,7 +119,7 @@ export default function DonationForm() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-islamic-500 focus:ring-islamic-500"
-                placeholder="John Doe"
+                placeholder="اختياري يمكنك كتابة أي حرف"
               />
             </div>
             <div>
@@ -154,7 +154,7 @@ export default function DonationForm() {
                 className="flex justify-center w-full px-4 py-3 text-sm font-medium text-white transition-colors border border-transparent rounded-md shadow-sm bg-islamic-600 hover:bg-islamic-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-islamic-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Processing...' : 'Donate Now'}
+                {isSubmitting ? 'جاري المعالجة' : 'التسجيل'}
               </button>
             </div>
           </form>
