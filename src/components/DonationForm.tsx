@@ -18,7 +18,7 @@ export default function DonationForm() {
     e.preventDefault();
     
     // Validate donation code (example: "CHARITY2024")
-    if (code !== 'CHARITY2024') {
+    if (code !== '1124') {
       setError('Invalid donation code. Please contact the administrator.');
       return;
     }
@@ -96,7 +96,7 @@ export default function DonationForm() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="code" className="block text-sm font-medium text-gray-700">
-                Donation Code
+                كود المجموعة
               </label>
               <input
                 type="text"
@@ -110,7 +110,7 @@ export default function DonationForm() {
             </div>
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Your Name
+                اسم -اختياري-
               </label>
               <input
                 type="text"
@@ -124,7 +124,7 @@ export default function DonationForm() {
             </div>
             <div>
               <label htmlFor="amount" className="block text-sm font-medium text-gray-700">
-                Donation Amount
+                القيمة
               </label>
               <div className="relative mt-1 rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -167,26 +167,26 @@ export default function DonationForm() {
         className="relative max-w-md p-6 mx-auto mt-20 bg-white rounded-lg"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4"
       >
-        <h3 className="mb-4 text-lg font-medium text-gray-900">Confirm Your Donation</h3>
+        <h3 className="mb-4 text-lg font-medium text-gray-900">تأكيد القيمة - يرجى التأكد من الرقم</h3>
         <div className="space-y-4">
           <p className="text-sm text-gray-600">
-            Name: <span className="font-medium">{name}</span>
+            اسم: <span className="font-medium">{name}</span>
           </p>
           <p className="text-sm text-gray-600">
-            Amount: <span className="font-medium">${Number(amount).toFixed(2)}</span>
+            قيمة: <span className="font-medium">${Number(amount).toFixed(2)}</span>
           </p>
           <div className="flex space-x-4">
             <button
               onClick={confirmDonation}
               className="flex-1 px-4 py-2 text-white rounded-md bg-islamic-600 hover:bg-islamic-700"
             >
-              Confirm
+              تأكيد
             </button>
             <button
               onClick={() => setShowModal(false)}
               className="flex-1 px-4 py-2 text-gray-800 bg-gray-200 rounded-md hover:bg-gray-300"
             >
-              Cancel
+              الغاء
             </button>
           </div>
         </div>

@@ -76,41 +76,41 @@ export default function AdminDashboard() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-islamic-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8">
+      <div className="flex items-center justify-center min-h-screen px-4 py-12 bg-islamic-50 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md space-y-8">
           <div>
-            <Building2 className="mx-auto h-12 w-12 text-islamic-600" />
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Admin Dashboard
+            <Building2 className="w-12 h-12 mx-auto text-islamic-600" />
+            <h2 className="mt-6 text-3xl font-extrabold text-center text-gray-900">
+              إدراة المجموعة
             </h2>
           </div>
           <form className="mt-8 space-y-6" onSubmit={handleLogin}>
             <div>
               <label htmlFor="password" className="sr-only">
-                Password
+                رمز الدخول
               </label>
               <input
                 id="password"
                 name="password"
                 type="password"
                 required
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-islamic-500 focus:border-islamic-500 focus:z-10 sm:text-sm"
+                className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-islamic-500 focus:border-islamic-500 focus:z-10 sm:text-sm"
                 placeholder="Admin Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             {error && (
-              <div className="text-red-600 text-sm text-center">
+              <div className="text-sm text-center text-red-600">
                 {error}
               </div>
             )}
             <div>
               <button
                 type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-islamic-600 hover:bg-islamic-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-islamic-500"
+                className="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md group bg-islamic-600 hover:bg-islamic-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-islamic-500"
               >
-                Login
+                دخول
               </button>
             </div>
           </form>
@@ -120,29 +120,29 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-islamic-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+    <div className="min-h-screen px-4 py-12 bg-islamic-50 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Donation Dashboard</h1>
           <button
             onClick={() => setIsAuthenticated(false)}
             className="px-4 py-2 text-sm font-medium text-islamic-600 hover:text-islamic-700"
           >
-            Logout
+            خروج
           </button>
         </div>
         
         <div className="grid grid-cols-1 gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="overflow-hidden bg-white rounded-lg shadow">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <DollarSign className="h-6 w-6 text-islamic-600" />
+                  <DollarSign className="w-6 h-6 text-islamic-600" />
                 </div>
-                <div className="ml-5 w-0 flex-1">
+                <div className="flex-1 w-0 ml-5">
                   <dl>
                     <dt className="text-sm font-medium text-gray-500 truncate">
-                      Total Donations
+                      إجمالي المبلغ
                     </dt>
                     <dd className="text-lg font-semibold text-gray-900">
                       ${totalAmount.toFixed(2)}
@@ -153,16 +153,16 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="overflow-hidden bg-white rounded-lg shadow">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <Users className="h-6 w-6 text-islamic-600" />
+                  <Users className="w-6 h-6 text-islamic-600" />
                 </div>
-                <div className="ml-5 w-0 flex-1">
+                <div className="flex-1 w-0 ml-5">
                   <dl>
                     <dt className="text-sm font-medium text-gray-500 truncate">
-                      Total Donors
+                      عدد المسجلين
                     </dt>
                     <dd className="text-lg font-semibold text-gray-900">
                       {totalDonors}
@@ -173,16 +173,16 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="overflow-hidden bg-white rounded-lg shadow">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <Clock className="h-6 w-6 text-islamic-600" />
+                  <Clock className="w-6 h-6 text-islamic-600" />
                 </div>
-                <div className="ml-5 w-0 flex-1">
+                <div className="flex-1 w-0 ml-5">
                   <dl>
                     <dt className="text-sm font-medium text-gray-500 truncate">
-                      Last Donation
+                      آخر عملية
                     </dt>
                     <dd className="text-lg font-semibold text-gray-900">
                       {lastDonation ? (
@@ -198,39 +198,39 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="bg-white shadow rounded-lg">
+        <div className="bg-white rounded-lg shadow">
           <div className="px-4 py-5 sm:p-6">
-            <h3 className="text-lg font-medium leading-6 text-gray-900 mb-4">
-              Monthly Donations
+            <h3 className="mb-4 text-lg font-medium leading-6 text-gray-900">
+              سجلات شهرية
             </h3>
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-islamic-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Month
+                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                      الشهر
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Number of Donations
+                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                      عدد المسجلين
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Total Amount
+                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                      إجمالي المبلغ
                     </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {donations.map((donation) => (
                     <tr key={donation.month}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
                         {new Date(donation.month + '-01').toLocaleDateString('en-US', {
                           year: 'numeric',
                           month: 'long'
                         })}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
                         {donation.donation_count}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
                         ${donation.total_amount.toFixed(2)}
                       </td>
                     </tr>
