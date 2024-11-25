@@ -93,7 +93,7 @@ export default function DonationForm() {
           <h2 className="mb-8 text-3xl font-extrabold text-center text-gray-900">
             قم بتسجيل قيمة التبرع
           </h2>
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 text-right">
             <div>
               <label htmlFor="code" className="block text-sm font-medium text-gray-700">
                 كود المجموعة

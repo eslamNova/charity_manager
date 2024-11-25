@@ -95,7 +95,7 @@ export default function AdminDashboard() {
                 type="password"
                 required
                 className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-islamic-500 focus:border-islamic-500 focus:z-10 sm:text-sm"
-                placeholder="Admin Password"
+                placeholder="أدخل الرمز"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -123,7 +123,7 @@ export default function AdminDashboard() {
     <div className="min-h-screen px-4 py-12 bg-islamic-50 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">صفحة الإدارة</h1>
+          <h1 className="text-3xl font-bold text-right text-gray-900">صفحة الإدارة</h1>
           <button
             onClick={() => setIsAuthenticated(false)}
             className="px-4 py-2 text-sm font-medium text-islamic-600 hover:text-islamic-700"
@@ -141,11 +141,11 @@ export default function AdminDashboard() {
                 </div>
                 <div className="flex-1 w-0 ml-5">
                   <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">
+                    <dt className="text-sm font-medium text-right text-gray-500 truncate">
                       إجمالي المبلغ
                     </dt>
-                    <dd className="text-lg font-semibold text-gray-900">
-                      ${totalAmount.toFixed(2)}
+                    <dd className="text-lg font-semibold text-right text-gray-900">
+                       جنيه {totalAmount.toFixed(2)}
                     </dd>
                   </dl>
                 </div>
@@ -161,10 +161,10 @@ export default function AdminDashboard() {
                 </div>
                 <div className="flex-1 w-0 ml-5">
                   <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">
+                    <dt className="text-sm font-medium text-right text-gray-500 truncate">
                       عدد المسجلين
                     </dt>
-                    <dd className="text-lg font-semibold text-gray-900">
+                    <dd className="text-lg font-semibold text-right text-gray-900">
                       {totalDonors}
                     </dd>
                   </dl>
@@ -181,15 +181,15 @@ export default function AdminDashboard() {
                 </div>
                 <div className="flex-1 w-0 ml-5">
                   <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">
+                    <dt className="text-sm font-medium text-right text-gray-500 truncate">
                       آخر عملية
                     </dt>
-                    <dd className="text-lg font-semibold text-gray-900">
+                    <dd className="text-lg font-semibold text-right text-gray-900">
                       {lastDonation ? (
                         <>
-                            {lastDonation.name} بواسطة {lastDonation.amount.toFixed(2)} تم تسجيل
+                            {lastDonation.name} جنيه بواسطة {lastDonation.amount.toFixed(2)} تم تسجيل
                         </>
-                      ) : 'No donations yet'}
+                      ) : 'لا يوجد بيانات حتى الآن'}
                     </dd>
                   </dl>
                 </div>
@@ -207,13 +207,13 @@ export default function AdminDashboard() {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-islamic-50">
                   <tr>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-right text-gray-500 uppercase">
                       الشهر
                     </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-right text-gray-500 uppercase">
                       عدد المسجلين
                     </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-right text-gray-500 uppercase">
                       إجمالي المبلغ
                     </th>
                   </tr>
@@ -221,16 +221,16 @@ export default function AdminDashboard() {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {donations.map((donation) => (
                     <tr key={donation.month}>
-                      <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                      <td className="px-6 py-4 text-sm text-right text-gray-900 whitespace-nowrap">
                         {new Date(donation.month + '-01').toLocaleDateString('en-US', {
                           year: 'numeric',
                           month: 'long'
                         })}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                      <td className="px-6 py-4 text-sm text-right text-gray-900 whitespace-nowrap">
                         {donation.donation_count}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                      <td className="px-6 py-4 text-sm text-right text-gray-900 whitespace-nowrap">
                         جنيه {donation.total_amount.toFixed(2)}
                       </td>
                     </tr>
