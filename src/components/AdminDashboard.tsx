@@ -187,7 +187,7 @@ export default function AdminDashboard() {
                     <dd className="text-lg font-semibold text-gray-900">
                       {lastDonation ? (
                         <>
-                          ${lastDonation.amount.toFixed(2)} by {lastDonation.name}
+                            {lastDonation.name} بواسطة {lastDonation.amount.toFixed(2)} تم تسجيل
                         </>
                       ) : 'No donations yet'}
                     </dd>
@@ -200,7 +200,7 @@ export default function AdminDashboard() {
 
         <div className="bg-white rounded-lg shadow">
           <div className="px-4 py-5 sm:p-6">
-            <h3 className="mb-4 text-lg font-medium leading-6 text-gray-900">
+            <h3 className="mb-4 text-lg font-medium leading-6 text-right text-gray-900">
               سجلات شهرية
             </h3>
             <div className="overflow-x-auto">
@@ -231,7 +231,7 @@ export default function AdminDashboard() {
                         {donation.donation_count}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
-                        ${donation.total_amount.toFixed(2)}
+                        جنيه {donation.total_amount.toFixed(2)}
                       </td>
                     </tr>
                   ))}
