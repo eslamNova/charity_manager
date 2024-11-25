@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BarChart, DollarSign, Users } from 'lucide-react';
+import { Building2, DollarSign, Users, Clock } from 'lucide-react';
 
 interface MonthlyDonation {
   month: string;
@@ -7,10 +7,18 @@ interface MonthlyDonation {
   total_amount: number;
 }
 
+interface Donation {
+  id: number;
+  name: string;
+  amount: number;
+  created_at: string;
+}
+
 export default function AdminDashboard() {
   const [donations, setDonations] = useState<MonthlyDonation[]>([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalDonors, setTotalDonors] = useState(0);
+  const [lastDonation, setLastDonation] = useState<Donation | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -40,30 +48,38 @@ export default function AdminDashboard() {
   useEffect(() => {
     if (!isAuthenticated) return;
 
-    const fetchDonations = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch('/api/donations/monthly');
-        const data = await response.json();
-        setDonations(data);
+        const [monthlyResponse, lastDonationResponse] = await Promise.all([
+          fetch('/api/donations/monthly'),
+          fetch('/api/donations/last')
+        ]);
+
+        const monthlyData = await monthlyResponse.json();
+        const lastDonationData = await lastDonationResponse.json();
         
-        const total = data.reduce((sum: number, item: MonthlyDonation) => sum + item.total_amount, 0);
-        const donors = data.reduce((sum: number, item: MonthlyDonation) => sum + item.donation_count, 0);
+        setDonations(monthlyData);
+        setLastDonation(lastDonationData);
+        
+        const total = monthlyData.reduce((sum: number, item: MonthlyDonation) => sum + item.total_amount, 0);
+        const donors = monthlyData.reduce((sum: number, item: MonthlyDonation) => sum + item.donation_count, 0);
         
         setTotalAmount(total);
         setTotalDonors(donors);
       } catch (error) {
-        console.error('Failed to fetch donations:', error);
+        console.error('Failed to fetch data:', error);
       }
     };
 
-    fetchDonations();
+    fetchData();
   }, [isAuthenticated]);
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-islamic-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
+            <Building2 className="mx-auto h-12 w-12 text-islamic-600" />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
               Admin Dashboard
             </h2>
@@ -78,7 +94,7 @@ export default function AdminDashboard() {
                 name="password"
                 type="password"
                 required
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-rose-500 focus:border-rose-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-islamic-500 focus:border-islamic-500 focus:z-10 sm:text-sm"
                 placeholder="Admin Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -92,7 +108,7 @@ export default function AdminDashboard() {
             <div>
               <button
                 type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-islamic-600 hover:bg-islamic-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-islamic-500"
               >
                 Login
               </button>
@@ -104,13 +120,13 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-islamic-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Donation Dashboard</h1>
           <button
             onClick={() => setIsAuthenticated(false)}
-            className="px-4 py-2 text-sm font-medium text-rose-600 hover:text-rose-700"
+            className="px-4 py-2 text-sm font-medium text-islamic-600 hover:text-islamic-700"
           >
             Logout
           </button>
@@ -121,7 +137,7 @@ export default function AdminDashboard() {
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <DollarSign className="h-6 w-6 text-gray-400" />
+                  <DollarSign className="h-6 w-6 text-islamic-600" />
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
@@ -141,7 +157,7 @@ export default function AdminDashboard() {
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <Users className="h-6 w-6 text-gray-400" />
+                  <Users className="h-6 w-6 text-islamic-600" />
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
@@ -161,15 +177,19 @@ export default function AdminDashboard() {
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <BarChart className="h-6 w-6 text-gray-400" />
+                  <Clock className="h-6 w-6 text-islamic-600" />
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
                     <dt className="text-sm font-medium text-gray-500 truncate">
-                      Average Donation
+                      Last Donation
                     </dt>
                     <dd className="text-lg font-semibold text-gray-900">
-                      ${totalDonors ? (totalAmount / totalDonors).toFixed(2) : '0.00'}
+                      {lastDonation ? (
+                        <>
+                          ${lastDonation.amount.toFixed(2)} by {lastDonation.name}
+                        </>
+                      ) : 'No donations yet'}
                     </dd>
                   </dl>
                 </div>
@@ -185,7 +205,7 @@ export default function AdminDashboard() {
             </h3>
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+                <thead className="bg-islamic-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Month
@@ -195,9 +215,6 @@ export default function AdminDashboard() {
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Total Amount
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Average Donation
                     </th>
                   </tr>
                 </thead>
@@ -215,9 +232,6 @@ export default function AdminDashboard() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                         ${donation.total_amount.toFixed(2)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        ${(donation.total_amount / donation.donation_count).toFixed(2)}
                       </td>
                     </tr>
                   ))}

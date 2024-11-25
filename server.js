@@ -66,6 +66,22 @@ app.get('/api/donations/monthly', (req, res) => {
   }
 });
 
+app.get('/api/donations/last', (req, res) => {
+  try {
+    const stmt = db.prepare(`
+      SELECT id, name, amount, created_at
+      FROM donations
+      ORDER BY created_at DESC
+      LIMIT 1
+    `);
+    const lastDonation = stmt.get();
+    res.json(lastDonation || null);
+  } catch (error) {
+    console.error('Error fetching last donation:', error);
+    res.status(500).json({ error: 'Failed to fetch last donation' });
+  }
+});
+
 // Serve React app for all other routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));

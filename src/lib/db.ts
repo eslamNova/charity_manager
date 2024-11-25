@@ -1,6 +1,6 @@
 import Database from 'better-sqlite3';
 
-const db = new Database(':memory:');
+const db = new Database('donations.db', { verbose: console.log });
 
 // Create tables if they don't exist
 db.prepare(`
@@ -28,6 +28,16 @@ export const getMonthlyDonations = () => {
     ORDER BY month DESC
   `);
   return stmt.all();
+};
+
+export const getLastDonation = () => {
+  const stmt = db.prepare(`
+    SELECT id, name, amount, created_at
+    FROM donations
+    ORDER BY created_at DESC
+    LIMIT 1
+  `);
+  return stmt.get();
 };
 
 export type MonthlyDonation = {
