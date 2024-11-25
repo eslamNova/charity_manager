@@ -63,7 +63,7 @@ export default function DonationForm() {
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="min-h-screen bg-islamic-50 flex items-center justify-center"
+        className="flex items-center justify-center min-h-screen bg-islamic-50"
       >
         <div className="text-center">
           <motion.div
@@ -72,9 +72,9 @@ export default function DonationForm() {
             transition={{ type: "spring", stiffness: 200 }}
             className="mb-8"
           >
-            <Check className="h-32 w-32 text-islamic-600 mx-auto" />
+            <Check className="w-32 h-32 mx-auto text-islamic-600" />
           </motion.div>
-          <h2 className="text-3xl font-bold text-islamic-800 mb-4">
+          <h2 className="mb-4 text-3xl font-bold text-islamic-800">
             Donation Successful!
           </h2>
           <p className="text-islamic-600">Thank you for your generous contribution</p>
@@ -84,14 +84,14 @@ export default function DonationForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-islamic-50 to-islamic-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+    <div className="min-h-screen px-4 py-12 bg-gradient-to-br from-islamic-50 to-islamic-100 sm:px-6 lg:px-8">
+      <div className="max-w-md mx-auto overflow-hidden bg-white shadow-lg rounded-xl">
         <div className="px-8 py-12">
           <div className="flex items-center justify-center mb-8">
-            <Building2 className="h-12 w-12 text-islamic-600" />
+            <Building2 className="w-12 h-12 text-islamic-600" />
           </div>
-          <h2 className="text-center text-3xl font-extrabold text-gray-900 mb-8">
-            Make a Blessed Contribution
+          <h2 className="mb-8 text-3xl font-extrabold text-center text-gray-900">
+            قم بتسجيل قيمة التبرع
           </h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -104,7 +104,7 @@ export default function DonationForm() {
                 required
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-islamic-500 focus:ring-islamic-500"
+                className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-islamic-500 focus:ring-islamic-500"
                 placeholder="Enter your donation code"
               />
             </div>
@@ -118,7 +118,7 @@ export default function DonationForm() {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-islamic-500 focus:ring-islamic-500"
+                className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-islamic-500 focus:ring-islamic-500"
                 placeholder="John Doe"
               />
             </div>
@@ -126,8 +126,8 @@ export default function DonationForm() {
               <label htmlFor="amount" className="block text-sm font-medium text-gray-700">
                 Donation Amount
               </label>
-              <div className="mt-1 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <div className="relative mt-1 rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <span className="text-gray-500 sm:text-sm">$</span>
                 </div>
                 <input
@@ -138,20 +138,20 @@ export default function DonationForm() {
                   step="0.01"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
-                  className="block w-full pl-7 pr-12 rounded-md border-gray-300 focus:border-islamic-500 focus:ring-islamic-500"
+                  className="block w-full pr-12 border-gray-300 rounded-md pl-7 focus:border-islamic-500 focus:ring-islamic-500"
                   placeholder="0.00"
                 />
               </div>
             </div>
             {error && (
-              <div className="text-red-600 text-sm text-center">
+              <div className="text-sm text-center text-red-600">
                 {error}
               </div>
             )}
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-islamic-600 hover:bg-islamic-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-islamic-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex justify-center w-full px-4 py-3 text-sm font-medium text-white transition-colors border border-transparent rounded-md shadow-sm bg-islamic-600 hover:bg-islamic-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-islamic-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'Processing...' : 'Donate Now'}
@@ -164,10 +164,10 @@ export default function DonationForm() {
       <Modal
         isOpen={showModal}
         onRequestClose={() => setShowModal(false)}
-        className="relative bg-white rounded-lg max-w-md mx-auto mt-20 p-6"
+        className="relative max-w-md p-6 mx-auto mt-20 bg-white rounded-lg"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4"
       >
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Confirm Your Donation</h3>
+        <h3 className="mb-4 text-lg font-medium text-gray-900">Confirm Your Donation</h3>
         <div className="space-y-4">
           <p className="text-sm text-gray-600">
             Name: <span className="font-medium">{name}</span>
@@ -178,13 +178,13 @@ export default function DonationForm() {
           <div className="flex space-x-4">
             <button
               onClick={confirmDonation}
-              className="flex-1 py-2 px-4 bg-islamic-600 text-white rounded-md hover:bg-islamic-700"
+              className="flex-1 px-4 py-2 text-white rounded-md bg-islamic-600 hover:bg-islamic-700"
             >
               Confirm
             </button>
             <button
               onClick={() => setShowModal(false)}
-              className="flex-1 py-2 px-4 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300"
+              className="flex-1 px-4 py-2 text-gray-800 bg-gray-200 rounded-md hover:bg-gray-300"
             >
               Cancel
             </button>
