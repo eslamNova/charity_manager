@@ -168,25 +168,26 @@ export default function DonationForm() {
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4"
       >
         <h3 className="mb-4 text-lg font-medium text-gray-900">تأكيد القيمة - يرجى التأكد من الرقم</h3>
-        <div className="space-y-4">
-          <p className="text-sm text-gray-600">
+        <div className="space-y-4 text-right">
+          <p className="text-sm text-right text-gray-600">
             اسم: <span className="font-medium">{name}</span>
           </p>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-right text-gray-600">
             قيمة: <span className="font-medium">${Number(amount).toFixed(2)}</span>
           </p>
           <div className="flex space-x-4">
+          <button
+              onClick={() => setShowModal(false)}
+              className="flex-1 px-4 py-2 text-gray-800 bg-gray-200 rounded-md hover:bg-gray-300"
+            >
+              الغاء
+            </button>
+            
             <button
               onClick={confirmDonation}
               className="flex-1 px-4 py-2 text-white rounded-md bg-islamic-600 hover:bg-islamic-700"
             >
               تأكيد
-            </button>
-            <button
-              onClick={() => setShowModal(false)}
-              className="flex-1 px-4 py-2 text-gray-800 bg-gray-200 rounded-md hover:bg-gray-300"
-            >
-              الغاء
             </button>
           </div>
         </div>
